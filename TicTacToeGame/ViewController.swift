@@ -9,6 +9,8 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    // MARK: - Outlets
+    
     enum Turn {
         case nought
         case cross
@@ -33,14 +35,61 @@ class ViewController: UIViewController {
     
     let nought = "O"
     let cross = "X"
+    var board = [UIButton]()
+    
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        initBoard()
+    }
+    
+    // MARK: - Setup
+    
+    func initBoard() {
+        board.append(contentsOf: [fieldA1, fieldA2, fieldA3])
+        board.append(contentsOf: [fieldB1, fieldB2, fieldB3])
+        board.append(contentsOf: [fieldC1, fieldC2, fieldC3])
     }
 
+    // MARK: - Actions
+    
     @IBAction func boardTapAction(_ sender: UIButton) {
         addToBoard(sender)
+        
+        if fullBorad() {
+            resultAlert(title: "Draw")
+        }
+    }
+    
+    func resultAlert(title: String) {
+        let ac = UIAlertController(title: title,
+                                   message: nil,
+                                   preferredStyle: .actionSheet)
+        ac.addAction(UIAlertAction(title: "Reset",
+                                   style: .default,
+                                   handler: { _ in
+            self.resetBoard()
+        }))
+        self.present(ac, animated: true)
+    }
+    
+    func resetBoard() {
+        for button in board {
+            button.setTitle(nil, for: .normal)
+            button.isEnabled = true
+        }
+        
+        if firstTurn == Turn.nought {
+            firstTurn = Turn.cross
+            turnLabel.text = cross
+        } else if firstTurn == Turn.cross {
+            firstTurn = Turn.nought
+            turnLabel.text = nought
+        }
+        
+        currentTurn = firstTurn
     }
     
     func addToBoard(_ sender: UIButton) {
@@ -54,7 +103,17 @@ class ViewController: UIViewController {
                 currentTurn = Turn.nought
                 turnLabel.text = nought
             }
+            sender.isEnabled = false
         }
+    }
+    
+    func fullBorad() -> Bool {
+        for button in board {
+            if button.title(for: .normal) == nil {
+                return false
+            }
+        }
+        return true
     }
 }
 
