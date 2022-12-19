@@ -8,6 +8,8 @@
 import UIKit
 
 class ViewController: UIViewController {
+
+
     
     // MARK: - Outlets
     
@@ -33,8 +35,8 @@ class ViewController: UIViewController {
     var firstTurn = Turn.cross
     var currentTurn = Turn.cross
     
-    let nought = "O"
-    let cross = "X"
+    let nought = "o"
+    let cross = "x"
     var board = [UIButton]()
     
     var noughtScore = 0
