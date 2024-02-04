@@ -64,12 +64,12 @@ class ViewController: UIViewController {
         
         if checkForVictory(cross) {
             crossScore += 1
-            resultAlert(title: "Крестики победили!")
+            resultAlert(title: "Крестики васстали")
         }
         
         if checkForVictory(nought) {
             noughtScore += 1
-            resultAlert(title: "Нолики победили!")
+            resultAlert(title: "Нули выйграли игру")
         }
         
         if fullBorad() {
@@ -155,7 +155,7 @@ class ViewController: UIViewController {
         let ac = UIAlertController(title: title,
                                    message: message,
                                    preferredStyle: .actionSheet)
-        ac.addAction(UIAlertAction(title: "Играть заново",
+        ac.addAction(UIAlertAction(title: "Давай по новой",
                                    style: .default,
                                    handler: { _ in
             self.resetBoard()
